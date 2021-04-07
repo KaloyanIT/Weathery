@@ -26,7 +26,13 @@ namespace Weathery.API.Controllers
             _appSettings = appSettings.Value;
         }
 
+        /// <summary>
+        /// Create a user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Route(nameof(Register))]
+        [HttpPost]
         public async Task<IActionResult> Register(RegisterUserRequestModel model)
         {
             var user = new User
@@ -46,6 +52,7 @@ namespace Weathery.API.Controllers
         }
 
         [Route(nameof(Login))]
+        [HttpPost]
         public async Task<ActionResult<string>> Login(LoginRequestModel model)
         {
             var user = await this._userManager.FindByNameAsync(model.Username);

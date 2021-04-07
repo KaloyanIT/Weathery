@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Weathery.API</name>
+    </assembly>
+    <members>
+        <member name="M:Weathery.API.Controllers.IdentityController.Register(Weathery.API.Models.Identity.RegisterUserRequestModel)">
+            <summary>
+            Create a user
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
