@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Weathery.API.Data.Models
+namespace Weathery.Data.Models
 {
     public class User : IdentityUser
     {

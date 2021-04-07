@@ -7,8 +7,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Weathery.API.Data.Models;
 using Weathery.API.Models.Identity;
+using Weathery.Data.Models;
+using Weathery.Infrastructure.Configurations;
 
 namespace Weathery.API.Controllers
 {
@@ -17,10 +18,10 @@ namespace Weathery.API.Controllers
     public class IdentityController : ApiController
     {
         private readonly UserManager<User> _userManager;
-        private readonly ApplicationSettings _appSettings;
+        private readonly ApplicationSettingsConfiguration _appSettings;
 
         public IdentityController(UserManager<User> userManager,
-            IOptions<ApplicationSettings> appSettings)
+            IOptions<ApplicationSettingsConfiguration> appSettings)
         {
             _userManager = userManager;
             _appSettings = appSettings.Value;
@@ -51,18 +52,23 @@ namespace Weathery.API.Controllers
             return BadRequest(result.Errors);
         }
 
+        /// <summary>
+        /// Login to the application
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Route(nameof(Login))]
         [HttpPost]
         public async Task<ActionResult<string>> Login(LoginRequestModel model)
         {
-            var user = await this._userManager.FindByNameAsync(model.Username);
+            var user = await _userManager.FindByNameAsync(model.Username);
 
             if(user == null)
             {
                 return Unauthorized();
             }
 
-            var passwordValid = await this._userManager.CheckPasswordAsync(user, model.Password);
+            var passwordValid = await _userManager.CheckPasswordAsync(user, model.Password);
 
             if(!passwordValid)
             {

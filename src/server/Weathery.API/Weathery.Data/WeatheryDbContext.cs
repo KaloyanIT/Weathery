@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Weathery.API.Data.Models;
+using Weathery.Data.Models;
 
-namespace Weathery.API.Data
+namespace Weathery.Data
 {
     public class WeatheryDbContext : IdentityDbContext<User>
     {

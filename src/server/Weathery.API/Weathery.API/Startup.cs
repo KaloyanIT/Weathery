@@ -5,16 +5,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using Weathery.API.Data;
-using Weathery.API.Data.Models;
 using Weathery.API.Infrastructure;
+using Weathery.Data;
+using Weathery.Data.Models;
+using Weathery.Infrastructure.Configurations;
 
 namespace Weathery.API
 {
@@ -45,9 +45,9 @@ namespace Weathery.API
                 .AddEntityFrameworkStores<WeatheryDbContext>();
 
             var appsettingsConfiguration = Configuration.GetSection("ApplicationSettings");
-            services.Configure<ApplicationSettings>(appsettingsConfiguration);
+            services.Configure<ApplicationSettingsConfiguration>(appsettingsConfiguration);
 
-            var appSettings = appsettingsConfiguration.Get<ApplicationSettings>();
+            var appSettings = appsettingsConfiguration.Get<ApplicationSettingsConfiguration>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
             services.AddAuthentication(x =>
